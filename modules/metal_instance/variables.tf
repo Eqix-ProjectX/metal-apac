@@ -18,3 +18,6 @@ variable "billing_cycle" {
 variable "nums" {
     type = number
 }
+# variable "cidr" {
+#     type = number
+# }

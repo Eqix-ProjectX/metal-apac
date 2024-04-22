@@ -12,4 +12,4 @@ module "instance" {
     nums             = 3
     metro            = "SG"
     operating_system = "ubuntu_20_04"
-}
+}  
