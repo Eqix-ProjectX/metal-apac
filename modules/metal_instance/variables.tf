@@ -18,6 +18,9 @@ variable "billing_cycle" {
 variable "nums" {
     type = number
 }
+variable "project_id" {
+    type = string  
+}
 # variable "cidr" {
 #     type = number
 # }
