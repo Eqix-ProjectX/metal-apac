@@ -4,8 +4,8 @@ Based on the scrum project within EMEA/APAC TAM.   Provisioning certain numbers 
 
 ## :watermelon: Instruction
 
-This will provision with your demand of the OS and the numbers on the project.
-In the **main.tf** root module you may want to specify below as an augument.
+This will provision an instance with your demand of the OS and the numbers on the project.
+In the **main.tf** root module you may want to specify below as an argument.
 
 - `project_id`       specify the project id you are in
 - `nums`             specify the # of the instances you are about to provision
