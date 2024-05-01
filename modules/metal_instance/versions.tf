@@ -7,6 +7,7 @@ terraform {
   }
 }
 
+/*
 terraform {
   cloud {
     organization = "EQIX_projectX"
@@ -16,3 +17,4 @@ terraform {
     }
   }
 }
+*/
