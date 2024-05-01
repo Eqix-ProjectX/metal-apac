@@ -9,7 +9,7 @@ terraform {
 
 module "instance" {
     source           = "./modules/metal_instance"
-    project_id       = "97a6861a-3a9c-4816-9771-aabcc5249581"
+    project_id       = ""
     nums             = 3
     metro            = ""
     operating_system = "ubuntu_20_04"
