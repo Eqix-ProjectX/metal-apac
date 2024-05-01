@@ -1,6 +1,6 @@
 resource "equinix_metal_device" "metal" {
   count            = var.nums
-  hostname         = "metal-apac-node${count.index + 1}"
+  hostname         = "metal-${var.metro}-node-${count.index + 1}"
   plan             = var.plan
   metro            = var.metro
   operating_system = var.operating_system
