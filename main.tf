@@ -5,6 +5,13 @@ terraform {
       version = "1.35.0"
     }
   }
+  cloud {
+    organization = "EQIX_projectX"
+
+    workspaces {
+      name = "metal-apac"
+    }
+  }
 }
 
 module "instance" {
