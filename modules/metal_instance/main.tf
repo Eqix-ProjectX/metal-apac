@@ -6,9 +6,5 @@ resource "equinix_metal_device" "metal" {
   operating_system = var.operating_system
   billing_cycle    = var.billing_cycle
   project_id       = var.project_id
-  # ip_address {
-  #   type = "private_ipv4"
-  #   cidr = var.cidr
-  # }
 }
 
