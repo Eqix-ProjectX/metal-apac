@@ -5,12 +5,21 @@ terraform {
       version = "1.35.0"
     }
   }
+  cloud {
+    organization = "EQIX_projectX"
+
+    workspaces {
+      name = "metal-apac"
+    }
+  }
 }
 
 module "instance" {
     source           = "./modules/metal_instance"
-    project_id       = ""
-    nums             = 3
-    metro            = ""
-    operating_system = "ubuntu_20_04"
+    project_id       = var.project_id
+    billing_cycle    = var.billing_cycle
+    plan             = var.plan
+    nums             = var.nums
+    metro            = var.metro
+    operating_system = var.operating_system
 }  
