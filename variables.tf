@@ -18,34 +18,18 @@ variable "billing_cycle" {
 variable "nums" {
   type = number
 }
-variable "core_count" {
-  description = ""
-}
+variable "core_count" {}
 
-variable "metro_code" {
-  description = ""
-}
+variable "metro_code" {}
 
-variable "notifications" {
-  description = ""
-}
+variable "notifications" {}
 
-variable "package_code" {
-  description = ""
-}
+variable "package_code" {}
 
-variable "sec_metro_code" {
-  description = ""
-}
+variable "sec_metro_code" {}
 
-variable "type_code" {
-  description = ""
-}
+variable "type_code" {}
 
-variable "ver" {
-  description = ""
-}
-variable "account_number" {
-}
-variable "sec_account_number" {
-}
+variable "ver" {}
+variable "account_number" {}
+variable "sec_account_number" {}
