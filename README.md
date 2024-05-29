@@ -1,6 +1,6 @@
-# metal-apac
+# terraform-equinix-metal-apac
 
-Based on the scrum project within EMEA/APAC TAM.   Provisioning certain numbers of instances per your need.
+Based on the scrum project within EMEA/APAC TAM.   Provisioning certain numbers of instances and vnf per your need.
 
 ## :watermelon: Instruction
 
