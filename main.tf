@@ -26,18 +26,13 @@ module "instance" {
 
 module "ne" {
   source = "./modules/networkedge"
-  # connectivity    = var.connectivity
   core_count    = var.core_count
   metro_code    = var.metro
   notifications = var.notifications
   package_code  = var.package_code
   account_number = var.account_number
   sec_account_number = var.sec_account_number
-  # sec_hostname    = var.sec_hostname
   sec_metro_code = var.sec_metro_code
-  # sec_name        = var.sec_name
-  # throughput      = var.throughput
-  # throughput_unit = var.throughput_unit
   type_code = var.type_code
   ver       = var.ver
 }
