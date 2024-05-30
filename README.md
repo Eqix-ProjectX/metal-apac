@@ -23,6 +23,9 @@ In the **terraform.tfvars** in the root module you may want to specify below as 
 - `account_number` specify primary's account #
 - `sec_account_number` specify secondary's account #
 - `ver` specify the version of vd
+- `usernamme` specify username for ssh
+- `key_name` specify your registered publickey
+- `acl_template_id` specify ACL id
 
 *hostname*, *id*, and *public_ip* for both metal and NE will be shown per output upon completion of run.
 
@@ -30,19 +33,22 @@ It acts nothing more than above at the time writing the code today.   There will
 
 **terraform.tfvars** (sample)
 ```terraform
-project_id       = "your_projectid"
-nums             = 3
-metro            = "sg"
-operating_system = "ubuntu_20_04"
-core_count     = 2
-metro_code     = "SG"
-notifications  = ["name@equinix.com"]
-package_code   = "network-essentials"
-sec_metro_code = "OS"
-type_code = "C8000V"
-account_number = "svc_account"
+project_id         = "your_projectid"
+nums               = 3
+metro              = "sg"
+operating_system   = "ubuntu_20_04"
+core_count         = 2
+metro_code         = "SG"
+notifications      = ["name@equinix.com"]
+package_code       = "network-essentials"
+sec_metro_code     = "OS"
+type_code          = "C8000V"
+account_number     = "svc_account"
 sec_account_number = "svc_account"
-ver       = "17.06.01a"
+ver                = "17.06.01a"
+username           = "username"
+key_name           = "pubkey"
+acl_template_id    = "uuid"
 ```  
 
 
