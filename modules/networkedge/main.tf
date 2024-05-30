@@ -22,16 +22,17 @@ resource "equinix_network_device" "c8kv-ha" {
   account_number    = var.account_number
   version           = var.ver
   core_count        = var.core_count
+  acl_template_id   = var.acl_template_id
   secondary_device {
     name            = "vd-${var.sec_metro_code}-vnf-sec"
     metro_code      = var.sec_metro_code
     hostname        = "vd-${var.sec_metro_code}-vnf-sec"
     notifications   = var.notifications
     account_number  = var.sec_account_number
+    acl_template_id   = var.acl_template_id
   }
   ssh_key {
     username        = var.username
     key_name        = var.key_name
   }
-  acl_template_id   = var.acl_template_id
 }
