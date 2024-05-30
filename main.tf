@@ -5,7 +5,7 @@ terraform {
       version = "1.35.0"
     }
   }
- /*
+
   cloud {
     organization = "EQIX_projectX"
 
@@ -14,7 +14,7 @@ terraform {
     }
   }
 }
-*/
+
 
 module "instance" {
     source           = "./modules/metal_instance"
