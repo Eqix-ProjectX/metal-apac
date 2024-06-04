@@ -29,7 +29,7 @@ module "instance" {
 module "ne" {
   source             = "./modules/networkedge"
   core_count         = var.core_count
-  metro_code         = var.metro
+  metro_code         = var.metro_code
   notifications      = var.notifications
   package_code       = var.package_code
   account_number     = var.account_number
