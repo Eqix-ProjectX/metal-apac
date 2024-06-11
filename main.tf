@@ -17,7 +17,7 @@ terraform {
 
 
 module "instance" {
-  source             = "./modules/metal_instance"
+  source             = "github.com/Eqix-ProjectX/terraform-equinix-metal-instance/"
   project_id         = var.project_id
   billing_cycle      = var.billing_cycle
   plan               = var.plan
@@ -27,7 +27,7 @@ module "instance" {
 }
 
 module "ne" {
-  source             = "./modules/networkedge"
+  source             = "github.com/Eqix-ProjectX/terraform-equinix-networkedge-vnf/"
   core_count         = var.core_count
   metro_code         = var.metro_code
   notifications      = var.notifications
