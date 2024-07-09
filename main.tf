@@ -41,3 +41,71 @@ module "ne" {
   key_name           = var.key_name
   acl_template_id    = var.acl_template_id
 }
+
+# netmiko portion
+data "equinix_network_device" "vd_pri" {
+  name = "vd-${var.metro_code}-${var.username}-pre"
+
+  depends_on = [ module.ne ]
+}
+data "equinix_network_device" "vd_sec" {
+  name = "vd-${var.sec_metro_code}-${var.username}-sec"
+
+  depends_on = [ module.ne ]
+}
+data "equinix_metal_device" "instance" {
+  project_id = var.project_id
+  device_id  = "metal-${var.metro}-node-1}"
+
+  depends_on = [ module.instance ]
+}
+locals {
+  config = <<-EOF
+  from netmiko import ConnectHandler
+
+  pri = {
+    'device_type': 'cisco_xe',
+    'host'       : '${data.equinix_network_device.vd_pri.ssh_ip_address}',
+    'username'   : '${var.username}',
+    'password'   : '${data.equinix_network_device.vd_pri.vendor_configuration.adminPassword}'
+  }
+
+  sec = {
+    'device_type': 'cisco_xe',
+    'host'       : '${data.equinix_network_device.vd_sec.ssh_ip_address}',
+    'username'   : '${var.username}',
+    'password'   : '${data.equinix_network_device.vd_sec.vendor_configuration.adminPassword}'
+  }
+
+  ha = [pri, sec]
+
+  for i in ha:
+    net_connect = ConnectHandler(**i)
+    config_commands = [
+      'ip http secure-server',
+      'restconf'
+    ]
+    output = net_connect.send_config_set(config_commands)
+    print(output)
+  EOF
+}
+
+resource "null_resource" "cisco" {
+  provisioner "remote-exec" {
+    connection {
+      type           = "ssh"
+      user           = "root"
+      private_key    = var.private_key
+      host           = data.equinix_metal_device.instance.access_public_ipv4
+    }
+    
+    inline = [
+      "apt install python3-pip -y",
+      "y",
+      "pip install netmiko",
+      "y",
+      "cat << EOF > ~/restconf.py\n${local.config}\nEOF",
+      "python3 restconf.py"
+    ]    
+  }
+}
