@@ -44,9 +44,6 @@ module "ne" {
 
 module "mg2ne" {
   source         = "github.com/Eqix-ProjectX/terraform-equinix-mg2ne_connector/"
-  metro_code     = var.metro_code
-  sec_metro_code = var.sec_metro_code
-  username       = var.username
   metro          = var.metro
   vrf_desc       = var.vrf_desc
   vrf_name       = var.vrf_name
