@@ -1,6 +1,6 @@
 # metal-apac
 
-Based on the scrum project within EMEA/APAC TAM.   Provisioning certain numbers of instances and vnf per your need.
+Based on the scrum project within EMEA/APAC TAM.   Provisioning baremetal and vnf per your need as well as the paving the connectivity.
 
 ## :watermelon: Instruction
 
@@ -62,15 +62,15 @@ username           = "username"
 key_name           = "pubkey"
 acl_template_id    = "uuid"
 private_key        = "key"
-vrf_desc           ="sample"
-vrf_name           ="sample"
-vrf_asn            ="65000"
-vrf_ranges         =["192.168.0.0/25", "192.168.1.0/25"]
-project_id         ="your project_id"
-vlan_desc          ="sample"
-range_desc         ="sample"
-cidr               =29
-network_range      ="192.168.0.0"
+vrf_desc           = "sample"
+vrf_name           = "sample"
+vrf_asn            = "65000"
+vrf_ranges         = ["192.168.0.0/25", "192.168.1.0/25"]
+project_id         = "your project_id"
+vlan_desc          = "sample"
+range_desc         = "sample"
+cidr               = 29
+network_range      = "192.168.0.0"
 ```  
 
 
