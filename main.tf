@@ -17,13 +17,13 @@ terraform {
 
 
 module "instance" {
-  source             = "github.com/Eqix-ProjectX/terraform-equinix-metal-instance/"
-  project_id         = var.project_id
-  billing_cycle      = var.billing_cycle
-  plan               = var.plan
-  nums               = var.nums
-  metro              = var.metro
-  operating_system   = var.operating_system
+  source           = "github.com/Eqix-ProjectX/terraform-equinix-metal-instance/"
+  project_id       = var.project_id
+  billing_cycle    = var.billing_cycle
+  plan             = var.plan
+  nums             = var.nums
+  metro            = var.metro
+  operating_system = var.operating_system
 }
 
 module "ne" {
@@ -40,4 +40,90 @@ module "ne" {
   username           = var.username
   key_name           = var.key_name
   acl_template_id    = var.acl_template_id
+}
+
+module "mg2ne" {
+  source         = "github.com/Eqix-ProjectX/terraform-equinix-mg2ne_connector?ref=feature"
+  metro_code     = var.metro_code
+  sec_metro_code = var.sec_metro_code
+  username       = var.username
+  metro          = var.metro
+  vrf_desc       = var.vrf_desc
+  vrf_name       = var.vrf_name
+  vrf_asn        = var.vrf_asn
+  vrf_ranges     = var.vrf_ranges
+  project_id     = var.project_id
+  vlan_desc      = var.vlan_desc
+  range_desc     = var.range_desc
+  cidr           = var.cidr
+  network_range  = var.network_range
+
+}
+
+# netmiko portion
+data "equinix_network_device" "vd_pri" {
+  name = "vd-${var.metro_code}-${var.username}-pre"
+
+  depends_on = [module.ne]
+}
+data "equinix_network_device" "vd_sec" {
+  name = "vd-${var.sec_metro_code}-${var.username}-sec"
+
+  depends_on = [module.ne]
+}
+data "equinix_metal_device" "instance" {
+  project_id = var.project_id
+  device_id  = "metal-${var.metro}-node-1}"
+
+  depends_on = [module.instance]
+}
+locals {
+  config = <<-EOF
+  from netmiko import ConnectHandler
+
+  pri = {
+    'device_type': 'cisco_xe',
+    'host'       : '${data.equinix_network_device.vd_pri.ssh_ip_address}',
+    'username'   : '${var.username}',
+    'password'   : '${data.equinix_network_device.vd_pri.vendor_configuration.adminPassword}'
+  }
+
+  sec = {
+    'device_type': 'cisco_xe',
+    'host'       : '${data.equinix_network_device.vd_sec.ssh_ip_address}',
+    'username'   : '${var.username}',
+    'password'   : '${data.equinix_network_device.vd_sec.vendor_configuration.adminPassword}'
+  }
+
+  ha = [pri, sec]
+
+  for i in ha:
+    net_connect = ConnectHandler(**i)
+    config_commands = [
+      'ip http secure-server',
+      'restconf'
+    ]
+    output = net_connect.send_config_set(config_commands)
+    print(output)
+  EOF
+}
+
+resource "null_resource" "cisco" {
+  provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      user        = "root"
+      private_key = var.private_key
+      host        = data.equinix_metal_device.instance.access_public_ipv4
+    }
+
+    inline = [
+      "apt install python3-pip -y",
+      "y",
+      "pip install netmiko",
+      "y",
+      "cat << EOF > ~/restconf.py\n${local.config}\nEOF",
+      "python3 restconf.py"
+    ]
+  }
 }
