@@ -70,7 +70,7 @@ data "equinix_network_device" "vd_sec" {
 }
 data "equinix_metal_device" "instance" {
   project_id = var.project_id
-  device_id  = "metal-${var.metro}-node-1}"
+  hostname  = "metal-${var.metro}-node-1}"
 
   depends_on = [module.instance]
 }
