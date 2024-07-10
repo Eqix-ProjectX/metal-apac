@@ -27,6 +27,18 @@ In the **terraform.tfvars** in the root module you may want to specify below as 
 - `key_name` specify your registered publickey
 - `acl_template_id` specify ACL id
 
+[BGP connectivity]
+- `metro` where your baremetal lives at
+- `vrf_desc` description of vrf entity
+- `vrf_name` name of vrf
+- `vrf_asn` ASN of vrf
+- `vrf_ranges` IP ranges of vrf
+- `project_id` which your instance spinned up with
+- `vlan_desc` description of metal vlan
+- `range_desc` description of IP range
+- `cidr` cidr of IP ranges you reserve
+- `network_range` IP range itself
+
 *hostname*, *id*, and *public_ip* for both metal and NE will be shown per output upon completion of run.
 
 It acts nothing more than above at the time writing the code today.   There will be more to come.
@@ -49,6 +61,16 @@ ver                = "17.06.01a"
 username           = "username"
 key_name           = "pubkey"
 acl_template_id    = "uuid"
+private_key        = "key"
+vrf_desc           ="sample"
+vrf_name           ="sample"
+vrf_asn            ="65000"
+vrf_ranges         =["192.168.0.0/25", "192.168.1.0/25"]
+project_id         ="your project_id"
+vlan_desc          ="sample"
+range_desc         ="sample"
+cidr               =29
+network_range      ="192.168.0.0"
 ```  
 
 
