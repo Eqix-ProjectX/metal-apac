@@ -25,3 +25,11 @@ variable "username" {}
 variable "key_name" {}
 variable "acl_template_id" {}
 variable "private_key" {}
+variable "vrf_desc" {}
+variable "vrf_name" {}
+variable "vrf_asn" {}
+variable "vrf_ranges" {}
+variable "vlan_desc" {}
+variable "range_desc" {}
+variable "cidr" {}
+variable "network_range" {}
