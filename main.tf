@@ -43,7 +43,7 @@ module "ne" {
 }
 
 module "mg2ne" {
-  source         = "github.com/Eqix-ProjectX/terraform-equinix-mg2ne_connector?ref=feature"
+  source         = "github.com/Eqix-ProjectX/terraform-equinix-mg2ne_connector/"
   metro_code     = var.metro_code
   sec_metro_code = var.sec_metro_code
   username       = var.username
@@ -107,13 +107,16 @@ locals {
     print(output)
   EOF
 }
+locals {
+  ssh_private_key = base64decode(var.private_key)
+}
 
 resource "null_resource" "cisco" {
   provisioner "remote-exec" {
     connection {
       type        = "ssh"
       user        = "root"
-      private_key = var.private_key
+      private_key = local.ssh_private_key
       host        = data.equinix_metal_device.instance.access_public_ipv4
     }
 
