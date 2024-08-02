@@ -38,5 +38,4 @@ module "mg2ne" {
   range_desc     = var.range_desc
   cidr           = var.cidr
   network_range  = var.network_range
-
 }
