@@ -7,17 +7,12 @@ output "instance_id" {
 output "instance_pip" {
   value = module.instance.pip
 }
-output "hostname_vd" {
-  value = module.ne.hostname_vd
-  sensitive = true
+output "vrf_ranges" {
+  value = module.mg2ne.vrf_ranges
 }
-output "hostname_vd_sec" {
-  value = module.ne.hostname_vd_sec
-  sensitive = true
+output "cidr" {
+  value = module.mg2ne.cidr
 }
-output "ssh_ip_vd" {
-  value = module.ne.ssh_ip_vd
-}
-output "ssh_ip_vd_sec" {
-  value = module.ne.ssh_ip_vd_sec
+output "network_range" {
+  value = module.mg2ne.network_range
 }
