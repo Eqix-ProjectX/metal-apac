@@ -6,13 +6,13 @@ terraform {
     }
   }
 
-  # cloud {
-  #   organization = "EQIX_projectX"
+  cloud {
+    organization = "EQIX_projectX"
 
-  #   workspaces {
-  #     name = "metal-apac"
-  #   }
-  # }
+    workspaces {
+      name = "metal-apac"
+    }
+  }
 }
 
 
