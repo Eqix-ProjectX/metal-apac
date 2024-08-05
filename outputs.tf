@@ -16,3 +16,6 @@ output "cidr" {
 output "network_range" {
   value = module.mg2ne.network_range
 }
+output "vrf_asn" {
+  value = module.mg2ne.local_asn
+}
