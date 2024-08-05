@@ -4,7 +4,7 @@ Based on the scrum project within EMEA/APAC TAM.   Provisioning certain numbers 
 
 ## :watermelon: Instruction
 
-This will provision a metal instance and vnf with your demand of the OS and the numbers on the project by leveraging modules from external.
+This will provision a metal instance and vnf with your demand of the OS and the numbers on the project by leveraging modules from external. also provisions those components of BGP establishment with VNF.
 In the **terraform.tfvars** in the root module you may want to specify below as a variable.
 
 [Metal_Instance]

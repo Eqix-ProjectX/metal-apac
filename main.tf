@@ -2,7 +2,6 @@ terraform {
   required_providers {
     equinix = {
       source  = "equinix/equinix"
-      version = "1.35.0"
     }
   }
 
@@ -27,7 +26,7 @@ module "instance" {
 }
 
 module "mg2ne" {
-  source        = "github.com/Eqix-ProjectX/terraform-equinix-mg2ne_connector?ref=feature"
+  source        = "github.com/Eqix-ProjectX/terraform-equinix-mg2ne_connector/"
   metro         = var.metro
   vrf_desc      = var.vrf_desc
   vrf_name      = var.vrf_name
