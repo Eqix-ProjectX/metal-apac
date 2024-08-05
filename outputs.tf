@@ -8,7 +8,7 @@ output "instance_pip" {
   value = module.instance.pip
 }
 output "vrf_ranges" {
-  value = module.mg2ne.vrf_ranges
+  value = module.mg2ne.vrf_ranges[*]
 }
 output "cidr" {
   value = module.mg2ne.cidr
