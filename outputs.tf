@@ -20,5 +20,5 @@ output "vrf_asn" {
   value = module.mg2ne.vrf_asn
 }
 output "vlan" {
-  value = module.mg2ne.vlan
+  value = module.mg2ne.vxlan
 }
