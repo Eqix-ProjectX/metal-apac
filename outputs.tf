@@ -19,3 +19,6 @@ output "network_range" {
 output "vrf_asn" {
   value = module.mg2ne.vrf_asn
 }
+output "vlan" {
+  value = module.mg2ne.vlan
+}
