@@ -16,12 +16,17 @@ In the **terraform.tfvars** in the root module you may want to specify below as 
 [BGP connectivity]
 - `metro` where your baremetal lives in
 - `vrf_desc` description of vrf entity
+- `vrf_desc_sec` description of vrf sec entity 
 - `vrf_name` name of vrf
+- `vrf_name_sec` name of vrf sec
 - `vrf_asn` ASN of vrf
 - `vrf_ranges` IP ranges of vrf
+- `vrf_ranges_sec` IP ranges of vrf sec
 - `project_id` which your instance spinned up with
 - `vlan_desc` description of metal vlan
+- `vlan_desc_sec` description of metal vlan sec
 - `range_desc` description of IP range
+- `range_desc_sec` description of IP range sec
 - `cidr` cidr of IP ranges you reserve
 - `network_range` IP range itself
 
