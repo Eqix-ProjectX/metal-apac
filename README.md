@@ -15,20 +15,21 @@ In the **terraform.tfvars** in the root module you may want to specify below as 
 
 [BGP connectivity]
 - `metro` where your baremetal lives in
-- `vrf_desc` description of vrf entity
+- `vrf_desc` description of vrf pri entity
 - `vrf_desc_sec` description of vrf sec entity 
-- `vrf_name` name of vrf
+- `vrf_name_pri` name of vrf pri
 - `vrf_name_sec` name of vrf sec
 - `vrf_asn` ASN of vrf
-- `vrf_ranges` IP ranges of vrf
+- `vrf_ranges_pri` IP ranges of vrf pri
 - `vrf_ranges_sec` IP ranges of vrf sec
 - `project_id` which your instance spinned up with
-- `vlan_desc` description of metal vlan
+- `vlan_desc_pri` description of metal vlan pri
 - `vlan_desc_sec` description of metal vlan sec
-- `range_desc` description of IP range
+- `range_desc_pri` description of IP range pri
 - `range_desc_sec` description of IP range sec
 - `cidr` cidr of IP ranges you reserve
-- `network_range` IP range itself
+- `network_range_pri` IP range pri itself
+- `network_range_sec` IP range sec itself
 
 Above parameters are going to be utilized when establishing the BGP peer with VNF on another module.
 
@@ -38,15 +39,20 @@ project_id         = "your_projectid"
 nums               = 3
 metro              = "sg"
 operating_system   = "ubuntu_20_04"
-vrf_desc           ="sample"
-vrf_name           ="sample"
-vrf_asn            ="65000"
-vrf_ranges         =["192.168.0.0/25", "192.168.1.0/25"]
-project_id         ="your project_id"
-vlan_desc          ="sample"
-range_desc         ="sample"
-cidr               =29
-network_range      ="192.168.0.0"
+vrf_desc_pri      = "pri"
+vrf_desc_sec      = "sec"
+vrf_name_pri      = "pri"
+vrf_name_sec      = "sec"
+vrf_asn           = "65111"
+vrf_ranges_pri    = ["192.168.0.0/25", "192.168.1.0/25"]
+vrf_ranges_sec    = ["192.168.2.0/25", "192.168.3.0/25"]
+vlan_desc_pri     = "pri"
+vlan_desc_sec     = "sec"
+range_desc_pri    = "pri"
+range_desc_sec    = "sec"
+cidr              = 29
+network_range_pri = "192.168.0.0"
+network_range_sec = "192.168.2.0"
 ```  
 
 

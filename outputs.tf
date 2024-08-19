@@ -16,8 +16,11 @@ output "vrf_ranges_sec" {
 output "cidr" {
   value = module.mg2ne.cidr
 }
-output "network_range" {
-  value = module.mg2ne.network_range
+output "network_range_pri" {
+  value = module.mg2ne.network_range_pri
+}
+output "network_range_sec" {
+  value = module.mg2ne.network_range_sec
 }
 output "vrf_asn" {
   value = module.mg2ne.vrf_asn
