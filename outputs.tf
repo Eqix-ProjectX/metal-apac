@@ -27,4 +27,3 @@ output "vlan_pri" {
 }
 output "vlan_sec" {
   value = module.mg2ne.vlan_sec
-}
