@@ -50,7 +50,7 @@ vlan_desc_pri     = "pri"
 vlan_desc_sec     = "sec"
 range_desc_pri    = "pri"
 range_desc_sec    = "sec"
-cidr              = 29
+cidr              = 30
 network_range_pri = "192.168.0.0"
 network_range_sec = "192.168.2.0"
 ```  
