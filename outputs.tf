@@ -7,6 +7,12 @@ output "instance_id" {
 output "instance_pip" {
   value = module.instance.pip
 }
+output "vrf_pri" {
+  value = equinix_metal_vrf.myvrf_pri.id
+}
+output "vrf_sec" {
+  value = equinix_metal_vrf.myvrf_sec.id
+}
 output "vrf_ranges" {
   value = module.mg2ne.vrf_ranges[*]
 }
@@ -30,4 +36,13 @@ output "vlan_pri" {
 }
 output "vlan_sec" {
   value = module.mg2ne.vlan_sec
+}
+output "connection_name" {
+  value = equinix_metal_connection.mg2vd.name
+}
+output "port_pri" {
+  value = equinix_metal_connection.mg2vd.ports[0].id
+}
+output "port_sec" {
+  value = equinix_metal_connection.mg2vd.ports[1].id
 }

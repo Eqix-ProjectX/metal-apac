@@ -30,6 +30,8 @@ In the **terraform.tfvars** in the root module you may want to specify below as 
 - `cidr` cidr of IP ranges you reserve
 - `network_range_pri` IP range pri itself
 - `network_range_sec` IP range sec itself
+- `connection_name` connection name
+- `email` your email
 
 Above parameters are going to be utilized when establishing the BGP peer with VNF on another module.
 
@@ -53,6 +55,8 @@ range_desc_sec    = "sec"
 cidr              = 30
 network_range_pri = "192.168.0.0"
 network_range_sec = "192.168.2.0"
+connection_name="your connection name"
+email="your email"
 ```  
 
 
