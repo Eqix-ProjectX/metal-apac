@@ -7,6 +7,12 @@ output "instance_id" {
 output "instance_pip" {
   value = module.instance.pip
 }
+output "vrf_pri" {
+  value = module.mg2ne.vrf_pri
+}
+output "vrf_sec" {
+  value = module.mg2ne.vrf_sec
+}
 output "vrf_ranges" {
   value = module.mg2ne.vrf_ranges[*]
 }
@@ -30,4 +36,13 @@ output "vlan_pri" {
 }
 output "vlan_sec" {
   value = module.mg2ne.vlan_sec
+}
+output "connection_name" {
+  value = module.mg2ne.connection_name
+}
+output "port_pri" {
+  value = module.mg2ne.port_pri
+}
+output "port_sec" {
+  value = module.mg2ne.port_sec
 }
