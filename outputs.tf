@@ -46,6 +46,9 @@ output "port_pri" {
 output "port_sec" {
   value = module.mg2ne.port_sec
 }
-output "connection_token" {
-  value = module.mg2ne.connection_token
+output "connection_token_pri" {
+  value = module.mg2ne.connection_token_pri
+}
+output "connection_token_sec" {
+  value = module.mg2ne.connection_token_sec
 }
