@@ -37,12 +37,3 @@ output "vlan_pri" {
 output "vlan_sec" {
   value = module.mg2ne.vlan_sec
 }
-output "connection_name" {
-  value = module.mg2ne.connection_name
-}
-output "connection_token_pri" {
-  value = module.mg2ne.connection_token_pri
-}
-output "connection_token_sec" {
-  value = module.mg2ne.connection_token_sec
-}
