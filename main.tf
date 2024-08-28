@@ -14,7 +14,6 @@ terraform {
   }
 }
 
-
 module "instance" {
   source           = "github.com/Eqix-ProjectX/terraform-equinix-metal-instance/"
   project_id       = var.project_id
@@ -43,6 +42,4 @@ module "mg2ne" {
   cidr              = var.cidr
   network_range_pri = var.network_range_pri
   network_range_sec = var.network_range_sec
-  connection_name   = var.connection_name
-  email             = var.email
 }
