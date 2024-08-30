@@ -32,8 +32,6 @@ module "mg2ne" {
   vrf_name_pri = var.vrf_name_pri
   vrf_name_sec = var.vrf_name_sec
   vrf_asn      = var.vrf_asn
-  # vrf_ranges_pri    = var.vrf_ranges_pri
-  # vrf_ranges_sec    = var.vrf_ranges_sec
   project_id        = var.project_id
   vlan_desc_pri     = var.vlan_desc_pri
   vlan_desc_sec     = var.vlan_desc_sec
