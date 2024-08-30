@@ -20,8 +20,6 @@ In the **terraform.tfvars** in the root module you may want to specify below as 
 - `vrf_name_pri` name of vrf pri
 - `vrf_name_sec` name of vrf sec
 - `vrf_asn` ASN of vrf
-- `vrf_ranges_pri` IP ranges of vrf pri
-- `vrf_ranges_sec` IP ranges of vrf sec
 - `project_id` which your instance spinned up with
 - `vlan_desc_pri` description of metal vlan pri
 - `vlan_desc_sec` description of metal vlan sec
@@ -44,8 +42,6 @@ vrf_desc_sec      = "sec"
 vrf_name_pri      = "pri"
 vrf_name_sec      = "sec"
 vrf_asn           = "65111"
-vrf_ranges_pri    = ["192.168.0.0/25", "192.168.1.0/25"]
-vrf_ranges_sec    = ["192.168.2.0/25", "192.168.3.0/25"]
 vlan_desc_pri     = "pri"
 vlan_desc_sec     = "sec"
 range_desc_pri    = "pri"
