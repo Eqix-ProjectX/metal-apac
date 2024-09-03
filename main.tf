@@ -41,3 +41,16 @@ module "mg2ne" {
   network_range_pri = var.network_range_pri
   network_range_sec = var.network_range_sec
 }
+
+resource "equinix_metal_port_vlan_attachment" "pri" {
+  count = var.nums
+  device_id = module.instance.id[count.index]
+  port_name = "bond0"
+  vlan_vnid = module.mg2ne.vlan
+}
+resource "equinix_metal_port_vlan_attachment" "sec" {
+  count = var.nums
+  device_id = module.instance.id[count.index]
+  port_name = "bond0"
+  vlan_vnid = module.mg2ne.vlan_sec
+}
