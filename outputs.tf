@@ -37,3 +37,6 @@ output "vlan_pri" {
 output "vlan_sec" {
   value = module.mg2ne.vlan_sec
 }
+# output "bond_0" {
+#   value = module.instance.ports
+# }

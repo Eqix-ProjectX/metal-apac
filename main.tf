@@ -47,55 +47,10 @@ resource "equinix_metal_port_vlan_attachment" "pri" {
   device_id = module.instance.id[count.index]
   port_name = "bond0"
   vlan_vnid = module.mg2ne.vlan
-  depends_on = [ equinix_metal_port.bond ]
 }
 resource "equinix_metal_port_vlan_attachment" "sec" {
   count     = var.nums
   device_id = module.instance.id[count.index]
   port_name = "bond0"
   vlan_vnid = module.mg2ne.vlan_sec
-  depends_on = [ equinix_metal_port.bond ]
 }
-resource "equinix_metal_port" "bond" {
-  port_id  = local.bond0
-  layer2   = false
-  bonded   = true
-  vlan_ids = [
-    module.mg2ne.vlan,
-    module.mg2ne.vlan_sec
-  ]  
-}
-resource "equinix_metal_device_network_type" "hybrid" {
-  device_id = module.instance.id[count.index]
-  type = "hybrid-bonded"
-}
-
-# resource "equinix_metal_port" "sec" {
-#   port_id  = local.bond0_sec
-#   layer2   = false
-#   bonded   = true
-#   vlan_ids = [module.mg2ne.vlan_sec]
-# }
-
-# locals {
-#   bond0_port_id = ([
-#     for p in module.instance.bond_0.*: p.id
-#     if p.name == "bond0"
-#   ])[0]
-# }
-
-locals {
-  bond0 = flatten([
-    for s in module.instance.bond_0 : [
-      for p in s : p.id if p.name == "bond0"
-    ]
-  ])[0]
-  # bond0_sec = flatten([
-  #   for s in module.instance.bond_0 : [
-  #     for p in s : p.id if p.name == "bond0"
-  #   ]
-  # ])[1]
-}
-# output "port_id" {
-#   value = local.bond0_port_id
-# }
