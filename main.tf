@@ -14,6 +14,12 @@ terraform {
   }
 }
 
+locals {
+  gw_ip_pri = cidrhost("${module.mg2ne.network_range_pri}/${var.cidr}", 1)
+  gw_ip_sec = cidrhost("${module.mg2ne.network_range_sec}/${var.cidr}", 1)
+  ssh_private_key = base64decode(var.private_key)
+}
+
 module "instance" {
   source           = "github.com/Eqix-ProjectX/terraform-equinix-metal-instance/"
   project_id       = var.project_id
@@ -53,4 +59,25 @@ resource "equinix_metal_port_vlan_attachment" "sec" {
   device_id = module.instance.id[count.index]
   port_name = "bond0"
   vlan_vnid = module.mg2ne.vlan_sec
+}
+
+resource "null_resource" "int_ip" {
+  count = var.nums
+  provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      user        = "root"
+      private_key = local.ssh_private_key
+      host        = module.instance.pip[count.index]
+    }
+
+    inline = [
+      "sudo ip link add link bond0 name bond0.${module.mg2ne.vlan} type vlan id ${module.mg2ne.vlan}",
+      "sudo ip link add link bond0 name bond0.${module.mg2ne.vlan_sec} type vlan id ${module.mg2ne.vlan_sec}",
+      "sudo ip addr add ${cidrhost("${local.gw_ip_pri}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan}",
+      "sudo ip addr add ${cidrhost("${local.gw_ip_sec}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan_sec}",
+      "sudo ip link set bond0.${module.mg2ne.vlan} up",
+      "sudo ip link set bond0.${module.mg2ne.vlan_sec} up"
+    ]
+  }
 }
