@@ -61,6 +61,7 @@ resource "equinix_metal_port_vlan_attachment" "sec" {
   vlan_vnid = module.mg2ne.vlan_sec
 }
 
+/*
 resource "local_file" "netplan" {
   count = var.nums
   content = <<-EOT
@@ -99,6 +100,7 @@ resource "local_file" "netplan" {
   EOT
   filename = "netplan${count.index}.sh"
 }
+*/
 
 resource "null_resource" "int_ip" {
   count = var.nums
@@ -110,19 +112,15 @@ resource "null_resource" "int_ip" {
       host        = module.instance.pip[count.index]
     }
 
-    # inline = [
-      # "sudo ip link add link bond0 name bond0.${module.mg2ne.vlan} type vlan id ${module.mg2ne.vlan}",
-      # "sudo ip link add link bond0 name bond0.${module.mg2ne.vlan_sec} type vlan id ${module.mg2ne.vlan_sec}",
-      # "sudo ip addr add ${cidrhost("${local.gw_ip_pri}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan}",
-      # "sudo ip addr add ${cidrhost("${local.gw_ip_sec}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan_sec}",
-      # "sudo ip link set bond0.${module.mg2ne.vlan} up",
-      # "sudo ip link set bond0.${module.mg2ne.vlan_sec} up"
-      # "sudo netplan apply",
-      # "sudo systemctl restart system-networkd"
-    # ]
+    inline = [
+      "sudo ip link add link bond0 name bond0.${module.mg2ne.vlan} type vlan id ${module.mg2ne.vlan}",
+      "sudo ip link add link bond0 name bond0.${module.mg2ne.vlan_sec} type vlan id ${module.mg2ne.vlan_sec}",
+      "sudo ip addr add ${cidrhost("${local.gw_ip_pri}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan}",
+      "sudo ip addr add ${cidrhost("${local.gw_ip_sec}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan_sec}",
+      "sudo ip link set bond0.${module.mg2ne.vlan} up",
+      "sudo ip link set bond0.${module.mg2ne.vlan_sec} up"
+    ]
 
-    script = "netplan${count.index}.sh"
-  
-
+    # script = "netplan${count.index}.sh"
   }
 }
