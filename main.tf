@@ -61,6 +61,45 @@ resource "equinix_metal_port_vlan_attachment" "sec" {
   vlan_vnid = module.mg2ne.vlan_sec
 }
 
+resource "local_file" "netplan" {
+  count = var.nums
+  content = <<-EOT
+    #!/bin/bash
+    sudo cat << EOF > /etc/netplan/00-netcfg.yaml
+    network:
+      version: 2
+      renderer: networkd
+      ethernets:
+        enp1s0f0np0: {}
+        enp1s0f1np1: {}
+      bonds:
+        bond0:
+          interfaces:
+            - enp1s0f0np0
+            - enp1s0f1np1
+          addresses: []
+          parameters:
+            mode: active-backup
+            primary: bond0
+      vlans:
+        bond0.${module.mg2ne.vlan}:
+          id: ${module.mg2ne.vlan}
+          link: bond0
+          addresses:
+            - ${cidrhost("${local.gw_ip_pri}/${var.cidr}", count.index + 2)}/${var.cidr}
+          dhcp4: no
+        bond0.${module.mg2ne.vlan_sec}:
+          id: ${module.mg2ne.vlan_sec}
+          link: bond0
+          addresses:
+            - ${cidrhost("${local.gw_ip_sec}/${var.cidr}", count.index + 2)}/${var.cidr}
+          dhcp4: no
+    EOF
+    sudo systemctl restart system-networkd
+  EOT
+  filename = "netplan${count.index}.sh"
+}
+
 resource "null_resource" "int_ip" {
   count = var.nums
   provisioner "remote-exec" {
@@ -71,13 +110,19 @@ resource "null_resource" "int_ip" {
       host        = module.instance.pip[count.index]
     }
 
-    inline = [
-      "sudo ip link add link bond0 name bond0.${module.mg2ne.vlan} type vlan id ${module.mg2ne.vlan}",
-      "sudo ip link add link bond0 name bond0.${module.mg2ne.vlan_sec} type vlan id ${module.mg2ne.vlan_sec}",
-      "sudo ip addr add ${cidrhost("${local.gw_ip_pri}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan}",
-      "sudo ip addr add ${cidrhost("${local.gw_ip_sec}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan_sec}",
-      "sudo ip link set bond0.${module.mg2ne.vlan} up",
-      "sudo ip link set bond0.${module.mg2ne.vlan_sec} up"
-    ]
+    # inline = [
+      # "sudo ip link add link bond0 name bond0.${module.mg2ne.vlan} type vlan id ${module.mg2ne.vlan}",
+      # "sudo ip link add link bond0 name bond0.${module.mg2ne.vlan_sec} type vlan id ${module.mg2ne.vlan_sec}",
+      # "sudo ip addr add ${cidrhost("${local.gw_ip_pri}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan}",
+      # "sudo ip addr add ${cidrhost("${local.gw_ip_sec}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan_sec}",
+      # "sudo ip link set bond0.${module.mg2ne.vlan} up",
+      # "sudo ip link set bond0.${module.mg2ne.vlan_sec} up"
+      # "sudo netplan apply",
+      # "sudo systemctl restart system-networkd"
+    # ]
+
+    script = "netplan${count.index}.sh"
+  
+
   }
 }
