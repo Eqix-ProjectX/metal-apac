@@ -118,7 +118,9 @@ resource "null_resource" "int_ip" {
       "sudo ip addr add ${cidrhost("${local.gw_ip_pri}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan}",
       "sudo ip addr add ${cidrhost("${local.gw_ip_sec}/${var.cidr}", count.index + 2)}/${var.cidr} dev bond0.${module.mg2ne.vlan_sec}",
       "sudo ip link set bond0.${module.mg2ne.vlan} up",
-      "sudo ip link set bond0.${module.mg2ne.vlan_sec} up"
+      "sudo ip link set bond0.${module.mg2ne.vlan_sec} up",
+      "sudo ip route add ${var.network_range_pri}/24 via ${local.gw_ip_pri} dev bond0.${module.mg2ne.vlan}",
+      "sudo ip route add ${var.network_range_sec}/24 via ${local.gw_ip_sec} dev bond0.${module.mg2ne.vlan_sec}"
     ]
 
     # script = "netplan${count.index}.sh"
