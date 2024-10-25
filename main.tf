@@ -15,8 +15,8 @@ terraform {
 }
 
 locals {
-  gw_ip_pri = cidrhost("${module.mg2ne.network_range_pri}/${var.cidr}", 1)
-  gw_ip_sec = cidrhost("${module.mg2ne.network_range_sec}/${var.cidr}", 1)
+  gw_ip_pri       = cidrhost("${module.mg2ne.network_range_pri}/${var.cidr}", 1)
+  gw_ip_sec       = cidrhost("${module.mg2ne.network_range_sec}/${var.cidr}", 1)
   ssh_private_key = base64decode(var.private_key)
 }
 
@@ -120,7 +120,8 @@ resource "null_resource" "int_ip" {
       "sudo ip link set bond0.${module.mg2ne.vlan} up",
       "sudo ip link set bond0.${module.mg2ne.vlan_sec} up",
       "sudo ip route add ${var.network_range_pri}/24 via ${local.gw_ip_pri} dev bond0.${module.mg2ne.vlan}",
-      "sudo ip route add ${var.network_range_sec}/24 via ${local.gw_ip_sec} dev bond0.${module.mg2ne.vlan_sec}"
+      "sudo ip route add ${var.network_range_sec}/24 via ${local.gw_ip_sec} dev bond0.${module.mg2ne.vlan_sec}",
+      "sudo ip route add 10.0.0.0/20 via ${local.gw_ip_pri} dev bond0.${module.mg2ne.vlan}"
     ]
 
     # script = "netplan${count.index}.sh"
